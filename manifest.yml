@@ -1,0 +1,9 @@
+applications:
+- name: struts
+  path: ./build/libs/struts.jar
+  routes:
+  - route: struts-pal-graham-george.apps.evans.pal.pivotal.io
+  memory: 1G
+  instances: 1
+  services:
+  - struts-mysql
