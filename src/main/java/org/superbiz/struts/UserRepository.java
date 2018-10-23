@@ -17,8 +17,13 @@
 */
 package org.superbiz.struts;
 
-import com.opensymphony.xwork2.ActionSupport;
+import java.util.List;
 
-public class Index extends ActionSupport {
+public interface UserRepository {
 
+    public void save(User user);
+
+    public User findOne(long id);
+
+    public List<User> findAll();
 }

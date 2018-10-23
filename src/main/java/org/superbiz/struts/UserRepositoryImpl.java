@@ -17,13 +17,36 @@
 */
 package org.superbiz.struts;
 
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface UserService {
+@Repository
+public class UserRepositoryImpl implements UserRepository {
 
-    public void add(User user);
+    private CrudRepository<User, Long> mJPA;
 
-    public User find(int id);
+    public UserRepositoryImpl(EntityManager manager) {
+        mJPA = new SimpleJpaRepository<User, Long>(User.class, manager);
+    }
 
-    public List<User> findAll();
+    @Transactional
+    public void save(User user) {
+        mJPA.save(user);
+    }
+
+    public User findOne(long id) {
+        return mJPA.findOne(id);
+    }
+
+    public List<User> findAll() {
+        ArrayList<User> list = new ArrayList<>();
+        mJPA.findAll().forEach(list::add);
+        return list;
+    }
 }

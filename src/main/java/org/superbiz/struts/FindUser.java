@@ -22,9 +22,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class FindUser {
 
-    private final UserService service;
+    private final UserRepository service;
 
-    public FindUser(UserService service) {
+    public FindUser(UserRepository service) {
         this.service = service;
     }
 
@@ -61,7 +61,7 @@ public class FindUser {
     public String execute() {
 
         try {
-            this.user = service.find(id);
+            this.user = service.findOne(id);
         } catch (Exception e) {
             this.errorMessage = e.getMessage();
             return "failure";
